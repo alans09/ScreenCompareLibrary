@@ -1,0 +1,4 @@
+scikit-image
+imutils
+scipy
+opencv-python
