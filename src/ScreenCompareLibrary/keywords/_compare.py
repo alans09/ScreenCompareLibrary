@@ -2,6 +2,7 @@ import imutils
 import glob
 import os
 import cv2
+import numpy
 from skimage.measure import compare_ssim
 
 
@@ -47,7 +48,7 @@ class _Compare:
         Example:
 
         | Compare Screenshots | test.png | test2.png |
-        | Compare Screenshots | test.png | test2.png | diff.png
+        | Compare Screenshots | test.png | test2.png | diff.png |
         """
         image_a = cv2.imread(image_a)
         image_b = cv2.imread(image_b)
@@ -73,8 +74,8 @@ class _Compare:
         Example:
 
         | Compare Folders | Actual | Original |
-        | Compare Folders | Actual | Original | diff=True
-        | Compare Folders | Actual | Original | diff=True | end_on_error=True
+        | Compare Folders | Actual | Original | diff=True |
+        | Compare Folders | Actual | Original | diff=True | end_on_error=True |
         """
         list_of_files = zip(glob.glob(f"{folder_a}/*.*"), glob.glob(f"{folder_b}/*.*"))
         for pair in list_of_files:
@@ -95,4 +96,43 @@ class _Compare:
                         f"Pictures {pair[0]} and {pair[1]} are not the same"
                     )
         return None
+
+    def find_image_location(
+            self,
+            image_original,
+            image_in,
+            result=None,
+            treshold=0.8):
+        """Tries to find if image contains another image
+
+
+        `image_orignal`    image to search in
+
+        `image_in`    image to find within image_original
+
+        `result`    default None. If set, save image and show where image_in is cointained
+
+        `treshold`    default 0.8. Treshold that is used to match
+
+        Example:
+
+        | Find Image Location | ORIGINAL.png | TO_FIND.png |
+        | Find Image Location | ORIGINAL.png | TO_FIND.png | result=RESULT.png |
+        """
+        treshold = float(treshold)
+        img_original = cv2.imread(image_original)
+        img_to_find = cv2.imread(image_in)
+        w, h = img_to_find.shape[:-1]
+
+        res = cv2.matchTemplate(img_original, img_to_find,
+                                cv2.TM_CCOEFF_NORMED)
+        loc = numpy.where(res >= treshold)
+        print(loc)
+        print(type(loc))
+        if loc[0].size == 0:
+            raise AssertionError("Image is not within source image")
+        for pt in zip(*loc[::-1]):
+            cv2.rectangle(img_original, pt, (pt[0] + h, pt[1] + w), (0, 0, 255), 2)
+        if result:
+            cv2.imwrite(result, img_original)
 
