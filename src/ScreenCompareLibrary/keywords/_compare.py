@@ -43,7 +43,7 @@ class _Compare:
             cv2.rectangle(image_b, (x, y), (x + w, y + h), (0, 0, 255), 2)
         logger.debug(f"Image comparision score: {score}")
         logger.debug(f"Threshold set to: {threshold}")
-        if score >= int(threshold):
+        if score >= float(threshold):
             return True
         else:
             if diff_name:
