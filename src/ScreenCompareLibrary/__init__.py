@@ -34,7 +34,7 @@ class ScreenCompareLibrary(_Compare):
         Example:
 
         | Library | ScreenCompareLibrary |
-        | Library | ScreenCompareLibrary | 1024,768
-        | Library | ScreenCompareLibrary | 1900,1080
+        | Library | ScreenCompareLibrary | 1024,768 |
+        | Library | ScreenCompareLibrary | 1900,1080 |
         """
         self.resize = resize

@@ -14,7 +14,6 @@ Test Screen Comparision Valid
     Should Be True    ${res}
 
 Test Screen Comparision Invalid
-    [Tags]    test
     Open Browser    https://www.root.cz
     Maximize Browser Window
     ${path}    Capture Page Screenshot    to_compare.png
@@ -30,15 +29,16 @@ Test Compare Folders
 Test Find If Image Contains Another Image And Save Result
     Open Browser    https://robotframework.org/#examples
     Set Window Size    1920    1080
-    ${path}    Capture Page Screenshot    within.png
-    ${res}    Find Image Location    within.png    rf_small.png    result=result_compare.png    threshold=0.8
+    ${path}    Capture Page Screenshot    fullshot.png
+    ${res}    Contained Within Image    fullshot.png    rf_small.png    result=result_found.png    threshold=0.8
     Should Be True    ${res}
-    File Should Exist    result_compare.png
+    File Should Exist    result_found.png
 
 Test Find If Image Does Not Contains Another Image
+    [Tags]    test
     Open Browser    https://www.sme.sk
     Maximize Browser Window
-    ${path}    Capture Page Screenshot    within.png
-    ${res}    Find Image Location    within.png    aaa.png    result=result_compare.png    threshold=0.8
+    ${path}    Capture Page Screenshot    fullshot.png
+    ${res}    Contained Within Image    fullshot.png    demo.png    result=result_compare.png
     Should Not Be True    ${res}
     File Should Exist    result_compare.png
