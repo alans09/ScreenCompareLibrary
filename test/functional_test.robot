@@ -41,4 +41,3 @@ Test Find If Image Does Not Contains Another Image
     ${path}    Capture Page Screenshot    fullshot.png
     ${res}    Contained Within Image    fullshot.png    demo.png    result=result_compare.png
     Should Not Be True    ${res}
-    File Should Exist    result_compare.png
