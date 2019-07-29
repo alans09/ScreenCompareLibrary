@@ -18,6 +18,6 @@ python setup.py install
 ```
 
 ### Basic Usage
-Basic usage of library can be found at test folder with test.robot file.
+Basic usage of library can be found at test folder with functional_test.robot file.
 This is all for now.
 

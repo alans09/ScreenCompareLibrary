@@ -1,6 +1,13 @@
 # Own ignores
 .idea
 *geckodriver*
+test/*.html
+test/*.xml
+test/to_compare.png
+test/result_found.png
+test/diff.png
+test/fullshot.png
+test/DIFF
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
