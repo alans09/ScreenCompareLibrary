@@ -4,7 +4,7 @@ import os
 import cv2
 import numpy
 from robot.api import logger
-from skimage.measure import compare_ssim
+from skimage.util import compare_images
 
 
 class _Compare:
